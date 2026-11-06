@@ -513,20 +513,6 @@ export function renderHomePage(container) {
             <div class="kpi-sub">${lang === 'id' ? 'Dapur umum &amp; lumbung pangan komunitas' : 'Community kitchens &amp; pantries'}</div>
           </div>
         </div>
-            <div class="kpi-value">${formatNumber(metrics.portionsRedistributed)}</div>
-            <div class="kpi-sub">+ ${formatNumber(metrics.packsRedistributed)} bakery/grocery packs</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">Active participating providers</div>
-            <div class="kpi-value">${formatNumber(metrics.activeProvidersCount)}</div>
-            <div class="kpi-sub">Demo kitchens, bakeries &amp; grocers</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">Recipient organizations served</div>
-            <div class="kpi-value">${formatNumber(metrics.recipientOrgsServedCount)}</div>
-            <div class="kpi-sub">Community kitchens &amp; pantries</div>
-          </div>
-        </div>
 
         <div class="notice-banner">
           <span class="notice-banner-icon">${icon('info', 12)}</span>
