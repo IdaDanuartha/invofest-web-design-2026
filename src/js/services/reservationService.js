@@ -141,6 +141,10 @@ export const reservationService = {
    * - 'completed' (Provider or recipient confirms completed handoff -> counts in Impact!)
    * - 'cancelled' (Restores quantity back to the listing if still active)
    */
+  transitionStatus(reservationId, nextStatus) {
+    return this.transitionReservationStatus(reservationId, nextStatus);
+  },
+
   transitionReservationStatus(reservationId, nextStatus) {
     const { listings, reservations } = appState.getState();
     const target = reservations.find((r) => r.id === reservationId);

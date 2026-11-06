@@ -273,7 +273,7 @@ export function openQrScannerModal({ onHandoffCompleted } = {}) {
         const confirmBtn = resultPanel.querySelector('#confirm-scan-handoff-btn');
         if (confirmBtn) {
           confirmBtn.addEventListener('click', () => {
-            reservationService.transitionStatus(found.id, 'completed');
+            reservationService.transitionReservationStatus(found.id, 'completed');
             closeModal();
             showToast(
               isId
