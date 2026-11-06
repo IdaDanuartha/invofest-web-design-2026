@@ -11,6 +11,21 @@ export function localizeListing(item) {
   const isId = getLanguage() === 'id';
 
   if (isId) {
+    let collInstr = item.collectionInstructions_id || item.collectionInstructions;
+    if (collInstr && collInstr.startsWith('Check in at the side kitchen counter on Jl. Teuku Umar')) {
+      collInstr = 'Datang langsung ke konter dapur samping di Jl. Teuku Umar (area demo). Tanyakan penanggung jawab shift dan tunjukkan ID reservasi FoodLoop Anda.';
+    } else if (collInstr && collInstr.startsWith('Collect from the front bakery counter')) {
+      collInstr = 'Ambil di konter depan bakery sebelum tutup pukul 19.00 WITA. Harap bawa tas belanja kain jika memesan lebih dari 2 paket.';
+    } else if (collInstr && collInstr.startsWith('Loading bay behind the main grocer store')) {
+      collInstr = 'Area bongkar muat di belakang toko swalayan utama. Bawa keranjang atau kantong kuat untuk memindahkan sayuran.';
+    }
+
+    const contactMethod = item.contactMethod_id || (
+      item.contactMethod && (item.contactMethod.includes('In-app') || item.contactMethod.includes('coordination message'))
+        ? 'Pesan koordinasi dalam aplikasi saat reservasi'
+        : item.contactMethod || 'Pesan koordinasi dalam aplikasi saat reservasi'
+    );
+
     return {
       ...item,
       title: item.title_id || item.title,
@@ -20,10 +35,17 @@ export function localizeListing(item) {
       allergens: item.allergens_id || item.allergens,
       dietaryTags: item.dietaryTags_id || item.dietaryTags,
       storageNotes: item.storageNotes_id || item.storageNotes,
-      collectionInstructions: item.collectionInstructions_id || item.collectionInstructions,
+      collectionInstructions: collInstr,
+      contactMethod,
       providerType: item.providerType_id || item.providerType
     };
   }
+
+  const contactMethod = item.contactMethod_en || (
+    item.contactMethod && (item.contactMethod.includes('Pesan koordinasi') || item.contactMethod.includes('aplikasi'))
+      ? 'In-app coordination message upon reservation'
+      : item.contactMethod || 'In-app coordination message upon reservation'
+  );
 
   return {
     ...item,
@@ -35,6 +57,7 @@ export function localizeListing(item) {
     dietaryTags: item.dietaryTags_en || item.dietaryTags,
     storageNotes: item.storageNotes_en || item.storageNotes,
     collectionInstructions: item.collectionInstructions_en || item.collectionInstructions,
+    contactMethod,
     providerType: item.providerType_en || item.providerType
   };
 }

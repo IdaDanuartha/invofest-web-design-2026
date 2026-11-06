@@ -11,20 +11,73 @@ export function localizeReservation(res) {
   if (!res) return null;
   const isId = getLanguage() === 'id';
 
+  let listingTitleId = res.listingTitle_id;
+  let listingTitleEn = res.listingTitle_en;
+  let collInstrId = res.collectionInstructions_id;
+  let collInstrEn = res.collectionInstructions_en;
+
+  // Lookup in listings if missing
+  if (!collInstrId || !listingTitleId) {
+    try {
+      const { listings } = appState.getState();
+      const l = listings?.find((item) => item.id === res.listingId);
+      if (l) {
+        if (!listingTitleId) listingTitleId = l.title_id;
+        if (!listingTitleEn) listingTitleEn = l.title_en || l.title;
+        if (!collInstrId) collInstrId = l.collectionInstructions_id;
+        if (!collInstrEn) collInstrEn = l.collectionInstructions_en || l.collectionInstructions;
+      }
+    } catch (_) {}
+  }
+
+  // Direct string-match fallback for collectionInstructions
+  if (isId && (!collInstrId || collInstrId === res.collectionInstructions)) {
+    const raw = res.collectionInstructions || '';
+    if (raw.includes('Check in at the side kitchen counter on Jl. Teuku Umar')) {
+      collInstrId = 'Datang langsung ke konter dapur samping di Jl. Teuku Umar (area demo). Tanyakan penanggung jawab shift dan tunjukkan ID reservasi FoodLoop Anda.';
+    } else if (raw.includes('Collect from the front bakery counter')) {
+      collInstrId = 'Ambil di konter depan bakery sebelum tutup pukul 19.00 WITA. Harap bawa tas belanja kain jika memesan lebih dari 2 paket.';
+    } else if (raw.includes('Loading bay behind the main grocer store')) {
+      collInstrId = 'Area bongkar muat di belakang toko swalayan utama. Bawa keranjang atau kantong kuat untuk memindahkan sayuran.';
+    } else if (raw.includes('Collect at Demo Kitchen reception desk')) {
+      collInstrId = 'Ambil di meja resepsionis Demo Kitchen. Sangat sesuai untuk distribusi dapur umum.';
+    } else if (raw.includes('Pick up from staff kitchen entrance')) {
+      collInstrId = 'Ambil di pintu masuk dapur staf di gang sebelah utara.';
+    } else if (raw.includes('Customer service desk at main entrance')) {
+      collInstrId = 'Meja layanan pelanggan di pintu masuk utama.';
+    } else if (raw.includes('Check in at the kitchen counter and show your FoodLoop reservation ID')) {
+      collInstrId = 'Datang ke konter dapur dan tunjukkan ID reservasi FoodLoop Anda.';
+    } else if (raw.includes('Check in at main counter with your FoodLoop reservation ID')) {
+      collInstrId = 'Datang ke konter utama dan sebutkan ID reservasi FoodLoop Anda.';
+    }
+  }
+
+  // Direct string-match fallback for listingTitle
+  if (isId && (!listingTitleId || listingTitleId === res.listingTitle)) {
+    const t = res.listingTitle || '';
+    if (t.includes('Vegetable rice bowls')) listingTitleId = 'Mangkuk nasi sayur hangat';
+    else if (t.includes('Artisan sourdough')) listingTitleId = 'Roti sourdough artisan & roti gandum';
+    else if (t.includes('Highland vegetable')) listingTitleId = 'Kotak sayur segar & umbi dataran tinggi';
+    else if (t.includes('Balinese spiced')) listingTitleId = 'Paket nasi ayam suwir bumbu Bali';
+    else if (t.includes('Morning vegetable')) listingTitleId = 'Mangkuk kuah kari sayur hangat';
+    else if (t.includes('Baguettes')) listingTitleId = 'Baguette, roti brioche & pastry pagi';
+    else if (t.includes('Surplus tropical')) listingTitleId = 'Peti buah tropis segar';
+  }
+
   if (isId) {
     return {
       ...res,
-      listingTitle: res.listingTitle_id || res.listingTitle,
+      listingTitle: listingTitleId || res.listingTitle,
       unit: res.unit_id || (res.unit === 'portions' ? 'porsi' : res.unit === 'packs' ? 'paket' : res.unit),
-      collectionInstructions: res.collectionInstructions_id || res.collectionInstructions
+      collectionInstructions: collInstrId || res.collectionInstructions
     };
   }
 
   return {
     ...res,
-    listingTitle: res.listingTitle_en || res.listingTitle,
+    listingTitle: listingTitleEn || res.listingTitle,
     unit: res.unit_en || (res.unit === 'porsi' ? 'portions' : res.unit === 'paket' ? 'packs' : res.unit),
-    collectionInstructions: res.collectionInstructions_en || res.collectionInstructions
+    collectionInstructions: collInstrEn || res.collectionInstructions
   };
 }
 
@@ -83,6 +136,8 @@ export const reservationService = {
       id: `res_${Date.now().toString().slice(-5)}`,
       listingId: listing.id,
       listingTitle: listing.title,
+      listingTitle_id: listing.title_id || listing.title,
+      listingTitle_en: listing.title_en || listing.title,
       category: listing.category,
       providerId: listing.providerId,
       providerName: listing.providerName,
@@ -91,12 +146,16 @@ export const reservationService = {
       area: listing.area,
       quantity: reqQty,
       unit: listing.unit,
+      unit_id: listing.unit_id || (listing.unit === 'portions' ? 'porsi' : listing.unit === 'packs' ? 'paket' : listing.unit),
+      unit_en: listing.unit_en || (listing.unit === 'porsi' ? 'portions' : listing.unit === 'paket' ? 'packs' : listing.unit),
       status: 'reserved',
       pickupWindow: {
         start: listing.pickupStart,
         end: listing.pickupEnd
       },
       collectionInstructions: listing.collectionInstructions,
+      collectionInstructions_id: listing.collectionInstructions_id || listing.collectionInstructions,
+      collectionInstructions_en: listing.collectionInstructions_en || listing.collectionInstructions,
       createdAt: new Date().toISOString(),
       completedAt: null,
       isDemo: true

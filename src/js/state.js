@@ -70,16 +70,28 @@ function loadInitialState() {
   const rawReservations = storageService.get('reservations');
   let reservations = (rawReservations || cloneSeed(SEED_RESERVATIONS)).map((r) => {
     const seedRes = SEED_RESERVATIONS.find((sr) => sr.id === r.id);
+    const matchedListing = listings.find((sl) => sl.id === r.listingId) || SEED_LISTINGS.find((sl) => sl.id === r.listingId);
     if (seedRes) {
       return {
         ...seedRes,
         ...r,
-        listingTitle_id: seedRes.listingTitle_id,
-        listingTitle_en: seedRes.listingTitle_en || seedRes.listingTitle,
-        unit_id: seedRes.unit_id,
-        unit_en: seedRes.unit_en || seedRes.unit,
-        collectionInstructions_id: seedRes.collectionInstructions_id,
-        collectionInstructions_en: seedRes.collectionInstructions_en || seedRes.collectionInstructions
+        listingTitle_id: seedRes.listingTitle_id || (matchedListing && matchedListing.title_id),
+        listingTitle_en: seedRes.listingTitle_en || seedRes.listingTitle || (matchedListing && (matchedListing.title_en || matchedListing.title)),
+        unit_id: seedRes.unit_id || (matchedListing && matchedListing.unit_id),
+        unit_en: seedRes.unit_en || seedRes.unit || (matchedListing && (matchedListing.unit_en || matchedListing.unit)),
+        collectionInstructions_id: seedRes.collectionInstructions_id || (matchedListing && matchedListing.collectionInstructions_id),
+        collectionInstructions_en: seedRes.collectionInstructions_en || seedRes.collectionInstructions || (matchedListing && (matchedListing.collectionInstructions_en || matchedListing.collectionInstructions))
+      };
+    }
+    if (matchedListing) {
+      return {
+        ...r,
+        listingTitle_id: r.listingTitle_id || matchedListing.title_id,
+        listingTitle_en: r.listingTitle_en || r.listingTitle || matchedListing.title_en || matchedListing.title,
+        unit_id: r.unit_id || matchedListing.unit_id,
+        unit_en: r.unit_en || r.unit || matchedListing.unit_en || matchedListing.unit,
+        collectionInstructions_id: r.collectionInstructions_id || matchedListing.collectionInstructions_id,
+        collectionInstructions_en: r.collectionInstructions_en || r.collectionInstructions || matchedListing.collectionInstructions_en || matchedListing.collectionInstructions
       };
     }
     return r;

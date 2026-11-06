@@ -19,6 +19,7 @@ import { getLanguage, t } from '../services/i18nService.js';
 export function renderCreateListingPage(container) {
   const pendingDraft = appState.consumePendingAiDraft();
   const currentUser = appState.getCurrentUser();
+  const isId = getLanguage() === 'id';
 
   let currentStep = 1;
   let publishedListing = null;
@@ -35,19 +36,23 @@ export function renderCreateListingPage(container) {
     ingredients: pendingDraft?.ingredients && !pendingDraft.ingredients.startsWith('Please confirm')
       ? pendingDraft.ingredients
       : '',
-    allergens: pendingDraft?.allergens || ['Not sure / needs confirmation'],
+    allergens: pendingDraft?.allergens || [isId ? 'Belum terkonfirmasi / perlu pemeriksaan' : 'Not sure / needs confirmation'],
     dietaryTags: [],
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80',
-    conditionNotes: 'Freshly portioned and sealed in clean containers.',
+    conditionNotes: isId ? 'Baru diporsi dan dikemas rapi dalam wadah bersih.' : 'Freshly portioned and sealed in clean containers.',
     pickupStart: '2026-11-06T15:00',
     pickupEnd: '2026-11-06T17:30',
     area: currentUser?.area || 'Denpasar',
-    collectionInstructions: 'Check in at the kitchen counter and show your FoodLoop reservation ID.',
+    collectionInstructions: isId
+      ? 'Datang langsung ke konter dapur dan tunjukkan ID reservasi FoodLoop Anda.'
+      : 'Check in at the kitchen counter and show your FoodLoop reservation ID.',
     recipientEligibility: 'any',
-    contactMethod: 'In-app coordination message upon reservation',
+    contactMethod: isId
+      ? 'Pesan koordinasi dalam aplikasi saat reservasi'
+      : 'In-app coordination message upon reservation',
     storageNotes: pendingDraft?.storageNotes && !pendingDraft.storageNotes.startsWith('Please confirm')
       ? pendingDraft.storageNotes
-      : 'Chilled at 4°C in commercial refrigerator',
+      : (isId ? 'Disimpan dingin pada suhu 4°C di lemari pendingin komersial' : 'Chilled at 4°C in commercial refrigerator'),
     bringContainer: false,
     accuracyConfirmed: false
   };

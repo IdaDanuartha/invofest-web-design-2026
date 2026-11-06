@@ -1115,7 +1115,8 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
       btn.addEventListener('click', () => {
         const isId = getLanguage() === 'id';
         const resId = btn.getAttribute('data-cancel-res');
-        const res = appState.getState().reservations.find((r) => r.id === resId);
+        const rawRes = appState.getState().reservations.find((r) => r.id === resId);
+        const res = localizeReservation(rawRes);
         if (!res) return;
 
         openModal({
@@ -1155,7 +1156,8 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
     container.querySelectorAll('[data-view-qr-ticket]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const resId = btn.getAttribute('data-view-qr-ticket');
-        const res = appState.getState().reservations.find((r) => r.id === resId);
+        const rawRes = appState.getState().reservations.find((r) => r.id === resId);
+        const res = localizeReservation(rawRes);
         if (res) {
           openQrTicketModal(res);
         }
@@ -1176,7 +1178,8 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
       btn.addEventListener('click', () => {
         const isId = getLanguage() === 'id';
         const resId = btn.getAttribute('data-view-pickup');
-        const res = appState.getState().reservations.find((r) => r.id === resId);
+        const rawRes = appState.getState().reservations.find((r) => r.id === resId);
+        const res = localizeReservation(rawRes);
         if (!res) return;
 
         openModal({
@@ -1213,7 +1216,8 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
       btn.addEventListener('click', () => {
         const isId = getLanguage() === 'id';
         const resId = btn.getAttribute('data-contact-provider');
-        const res = appState.getState().reservations.find((r) => r.id === resId);
+        const rawRes = appState.getState().reservations.find((r) => r.id === resId);
+        const res = localizeReservation(rawRes);
         if (!res) return;
 
         openModal({

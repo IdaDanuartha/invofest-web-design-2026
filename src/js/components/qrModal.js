@@ -7,7 +7,7 @@ import { openModal, closeModal } from './modal.js';
 import { renderQrCodeSvg } from '../../utils/qrCode.js';
 import { icon } from './icons.js';
 import { showToast } from './toast.js';
-import { reservationService } from '../services/reservationService.js';
+import { reservationService, localizeReservation } from '../services/reservationService.js';
 import { escapeHtml } from '../../utils/validation.js';
 import { formatPickupWindow } from '../../utils/formatDate.js';
 import { t, getLanguage } from '../services/i18nService.js';
@@ -16,9 +16,10 @@ import { router } from '../router.js';
 /**
  * Open Digital QR Ticket Modal for Recipients
  */
-export function openQrTicketModal(reservation) {
-  if (!reservation) return;
+export function openQrTicketModal(rawReservation) {
+  if (!rawReservation) return;
   const isId = getLanguage() === 'id';
+  const reservation = localizeReservation(rawReservation) || rawReservation;
   const qrPayload = `FOODLOOP-RES:${reservation.id}`;
   const qrSvg = renderQrCodeSvg(qrPayload, { size: 190, darkColor: '#244B3B' });
 
