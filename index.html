@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="FoodLoop connects food businesses in Bali with nearby community organizations and individuals so edible surplus food can be shared, reserved, collected, and tracked."
+  />
+  <title>FoodLoop - Good food deserves another chance</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png" />
+
+  <!-- Typography: DM Sans & DM Serif Display (PRD Section 6.3) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Modular CSS Architecture (PRD Section 22) -->
+  <link rel="stylesheet" href="src/css/tokens.css" />
+  <link rel="stylesheet" href="src/css/base.css" />
+  <link rel="stylesheet" href="src/css/layout.css" />
+  <link rel="stylesheet" href="src/css/components.css" />
+  <link rel="stylesheet" href="src/css/pages.css" />
+  <link rel="stylesheet" href="src/css/responsive.css" />
+</head>
+<body>
+  <!-- Accessible Skip Link (PRD Section 24) -->
+  <a href="#app-main" class="skip-link">Skip to main content</a>
+
+  <!-- Header & Demo Role Context Bar -->
+  <div id="app-header"></div>
+
+  <!-- Main View Outlet -->
+  <main id="app-main" tabindex="-1">
+    <noscript>
+      <div class="container section">
+        <div class="state-panel">
+          <h1>JavaScript Required</h1>
+          <p>Please enable JavaScript to run the FoodLoop surplus discovery and reservation platform.</p>
+        </div>
+      </div>
+    </noscript>
+  </main>
+
+  <!-- Site Footer -->
+  <div id="app-footer"></div>
+
+  <!-- Native ES Module Entrypoint -->
+  <script type="module" src="src/js/app.js"></script>
+</body>
+</html>
+
