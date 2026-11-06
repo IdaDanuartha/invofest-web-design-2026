@@ -45,14 +45,23 @@ function loadInitialState() {
         ...seedMatch,
         ...item,
         title_id: seedMatch.title_id,
+        title_en: seedMatch.title_en || seedMatch.title,
         description_id: seedMatch.description_id,
+        description_en: seedMatch.description_en || seedMatch.description,
         unit_id: seedMatch.unit_id,
+        unit_en: seedMatch.unit_en || seedMatch.unit,
         ingredients_id: seedMatch.ingredients_id,
+        ingredients_en: seedMatch.ingredients_en || seedMatch.ingredients,
         allergens_id: seedMatch.allergens_id,
+        allergens_en: seedMatch.allergens_en || seedMatch.allergens,
         dietaryTags_id: seedMatch.dietaryTags_id,
+        dietaryTags_en: seedMatch.dietaryTags_en || seedMatch.dietaryTags,
         storageNotes_id: seedMatch.storageNotes_id,
+        storageNotes_en: seedMatch.storageNotes_en || seedMatch.storageNotes,
         collectionInstructions_id: seedMatch.collectionInstructions_id,
-        providerType_id: seedMatch.providerType_id
+        collectionInstructions_en: seedMatch.collectionInstructions_en || seedMatch.collectionInstructions,
+        providerType_id: seedMatch.providerType_id,
+        providerType_en: seedMatch.providerType_en || seedMatch.providerType
       };
     }
     return item;
@@ -66,8 +75,11 @@ function loadInitialState() {
         ...seedRes,
         ...r,
         listingTitle_id: seedRes.listingTitle_id,
+        listingTitle_en: seedRes.listingTitle_en || seedRes.listingTitle,
         unit_id: seedRes.unit_id,
-        collectionInstructions_id: seedRes.collectionInstructions_id
+        unit_en: seedRes.unit_en || seedRes.unit,
+        collectionInstructions_id: seedRes.collectionInstructions_id,
+        collectionInstructions_en: seedRes.collectionInstructions_en || seedRes.collectionInstructions
       };
     }
     return r;

@@ -10,13 +10,21 @@ import { getLanguage } from './i18nService.js';
 export function localizeReservation(res) {
   if (!res) return null;
   const isId = getLanguage() === 'id';
-  if (!isId) return res;
+
+  if (isId) {
+    return {
+      ...res,
+      listingTitle: res.listingTitle_id || res.listingTitle,
+      unit: res.unit_id || (res.unit === 'portions' ? 'porsi' : res.unit === 'packs' ? 'paket' : res.unit),
+      collectionInstructions: res.collectionInstructions_id || res.collectionInstructions
+    };
+  }
 
   return {
     ...res,
-    listingTitle: res.listingTitle_id || res.listingTitle,
-    unit: res.unit_id || (res.unit === 'portions' ? 'porsi' : res.unit === 'packs' ? 'paket' : res.unit),
-    collectionInstructions: res.collectionInstructions_id || res.collectionInstructions
+    listingTitle: res.listingTitle_en || res.listingTitle,
+    unit: res.unit_en || (res.unit === 'porsi' ? 'portions' : res.unit === 'paket' ? 'packs' : res.unit),
+    collectionInstructions: res.collectionInstructions_en || res.collectionInstructions
   };
 }
 

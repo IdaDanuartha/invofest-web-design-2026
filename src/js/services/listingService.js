@@ -9,19 +9,33 @@ import { getLanguage } from './i18nService.js';
 export function localizeListing(item) {
   if (!item) return null;
   const isId = getLanguage() === 'id';
-  if (!isId) return item;
+
+  if (isId) {
+    return {
+      ...item,
+      title: item.title_id || item.title,
+      description: item.description_id || item.description,
+      unit: item.unit_id || (item.unit === 'portions' ? 'porsi' : item.unit === 'packs' ? 'paket' : item.unit),
+      ingredients: item.ingredients_id || item.ingredients,
+      allergens: item.allergens_id || item.allergens,
+      dietaryTags: item.dietaryTags_id || item.dietaryTags,
+      storageNotes: item.storageNotes_id || item.storageNotes,
+      collectionInstructions: item.collectionInstructions_id || item.collectionInstructions,
+      providerType: item.providerType_id || item.providerType
+    };
+  }
 
   return {
     ...item,
-    title: item.title_id || item.title,
-    description: item.description_id || item.description,
-    unit: item.unit_id || (item.unit === 'portions' ? 'porsi' : item.unit === 'packs' ? 'paket' : item.unit),
-    ingredients: item.ingredients_id || item.ingredients,
-    allergens: item.allergens_id || item.allergens,
-    dietaryTags: item.dietaryTags_id || item.dietaryTags,
-    storageNotes: item.storageNotes_id || item.storageNotes,
-    collectionInstructions: item.collectionInstructions_id || item.collectionInstructions,
-    providerType: item.providerType_id || item.providerType
+    title: item.title_en || item.title,
+    description: item.description_en || item.description,
+    unit: item.unit_en || (item.unit === 'porsi' ? 'portions' : item.unit === 'paket' ? 'packs' : item.unit),
+    ingredients: item.ingredients_en || item.ingredients,
+    allergens: item.allergens_en || item.allergens,
+    dietaryTags: item.dietaryTags_en || item.dietaryTags,
+    storageNotes: item.storageNotes_en || item.storageNotes,
+    collectionInstructions: item.collectionInstructions_en || item.collectionInstructions,
+    providerType: item.providerType_en || item.providerType
   };
 }
 

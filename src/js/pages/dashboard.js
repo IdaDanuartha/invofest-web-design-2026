@@ -8,8 +8,8 @@
  */
 
 import { appState } from '../state.js';
-import { listingService } from '../services/listingService.js';
-import { reservationService } from '../services/reservationService.js';
+import { listingService, localizeListing } from '../services/listingService.js';
+import { reservationService, localizeReservation } from '../services/reservationService.js';
 import { renderListingCard, getStatusBadgeHtml } from '../components/listingCard.js';
 import { openModal, closeModal } from '../components/modal.js';
 import { showToast } from '../components/toast.js';
@@ -28,15 +28,16 @@ import { getLanguage, t } from '../services/i18nService.js';
 import { openQrTicketModal, openQrScannerModal } from '../components/qrModal.js';
 
 function getReservationStatusBadge(status) {
+  const isId = getLanguage() === 'id';
   switch (status) {
     case 'reserved':
-      return `<span class="badge badge-citrus">${icon('statusDot', 7)} Reserved - Awaiting pickup</span>`;
+      return `<span class="badge badge-citrus">${icon('statusDot', 7)} ${isId ? 'Dipesan - Menunggu Penjemputan' : 'Reserved - Awaiting pickup'}</span>`;
     case 'collected':
-      return `<span class="badge badge-forest">${icon('statusHalf', 9)} Collected - Confirm completion</span>`;
+      return `<span class="badge badge-forest">${icon('statusHalf', 9)} ${isId ? 'Diambil - Konfirmasi Selesai' : 'Collected - Confirm completion'}</span>`;
     case 'completed':
-      return `<span class="badge badge-success">${icon('check', 12)} Handoff completed</span>`;
+      return `<span class="badge badge-success">${icon('check', 12)} ${isId ? 'Penyerahan Selesai' : 'Handoff completed'}</span>`;
     case 'cancelled':
-      return `<span class="badge badge-expired">${icon('x', 11)} Cancelled</span>`;
+      return `<span class="badge badge-expired">${icon('x', 11)} ${isId ? 'Dibatalkan' : 'Cancelled'}</span>`;
     default:
       return `<span class="badge badge-neutral">${escapeHtml(status)}</span>`;
   }
@@ -207,19 +208,22 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
     const isId = lang === 'id';
 
     // Strict role-based dataset filtering (No cross-contamination between roles)
+    const localizedAllListings = state.listings.map(localizeListing);
+    const localizedAllReservations = state.reservations.map(localizeReservation);
+
     const providerListings = isAdmin
-      ? state.listings
-      : state.listings.filter((l) => l.providerId === user.id);
+      ? localizedAllListings
+      : localizedAllListings.filter((l) => l.providerId === user.id);
 
     const providerReservations = isAdmin
-      ? state.reservations
-      : state.reservations.filter((r) => r.providerId === user.id);
+      ? localizedAllReservations
+      : localizedAllReservations.filter((r) => r.providerId === user.id);
 
     const recipientReservations = isAdmin
-      ? state.reservations
-      : state.reservations.filter((r) => r.recipientId === user.id);
+      ? localizedAllReservations
+      : localizedAllReservations.filter((r) => r.recipientId === user.id);
 
-    const savedListings = state.listings.filter((l) => (state.savedListingIds || []).includes(l.id));
+    const savedListings = localizedAllListings.filter((l) => (state.savedListingIds || []).includes(l.id));
 
     const alertsListings = providerListings.filter(
       (l) =>
@@ -579,9 +583,10 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
     }
 
     // Provider sees only their own listings; Admin sees all listings
-    const baseListings = isAdmin
+    const baseListings = (isAdmin
       ? state.listings
-      : state.listings.filter((l) => l.providerId === user.id);
+      : state.listings.filter((l) => l.providerId === user.id)
+    ).map(localizeListing);
 
     const filtered = baseListings.filter((item) => {
       if (listingTab === 'drafts' && item.status !== 'draft') return false;
@@ -740,11 +745,12 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
     // Provider sees incoming orders for their food.
     // Recipient / Individual sees their own bookings.
     // Admin sees all reservations across Bali.
-    const userReservations = isAdmin
+    const userReservations = (isAdmin
       ? state.reservations
       : isProvider
       ? state.reservations.filter((r) => r.providerId === user.id)
-      : state.reservations.filter((r) => r.recipientId === user.id);
+      : state.reservations.filter((r) => r.recipientId === user.id)
+    ).map(localizeReservation);
 
     const allRes = userReservations.filter((r) => {
       if (reservationTab === 'upcoming') return r.status === 'reserved';
@@ -954,7 +960,8 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
     `;
   }
 
-  function renderReservationActionRow(res, isProvider) {
+  function renderReservationActionRow(rawRes, isProvider) {
+    const res = localizeReservation(rawRes);
     const windowStr = formatPickupWindow(res.pickupWindow?.start, res.pickupWindow?.end);
     const lang = getLanguage();
     const isId = lang === 'id';

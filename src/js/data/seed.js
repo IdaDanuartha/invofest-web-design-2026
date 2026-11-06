@@ -536,20 +536,12 @@ export const SEED_RESERVATIONS = [
     createdAt: '2026-11-01T10:00:00+08:00',
     completedAt: '2026-11-01T14:30:00+08:00',
     isDemo: true
-  }
-];
-      start: '2026-11-01T13:00:00+08:00',
-      end: '2026-11-01T16:00:00+08:00'
-    },
-    collectionInstructions: 'Customer service desk at main entrance.',
-    createdAt: '2026-11-01T11:00:00+08:00',
-    completedAt: '2026-11-01T15:10:00+08:00',
-    isDemo: true
   },
   {
     id: 'res_007',
-    listingId: 'list_001',
+    listingId: 'food_001',
     listingTitle: 'Vegetable rice bowls & seasonal fruit',
+    listingTitle_id: 'Nasi kotak sayur & buah musiman',
     category: 'prepared-meals',
     providerId: 'provider_001',
     providerName: 'Demo Kitchen',
@@ -558,13 +550,16 @@ export const SEED_RESERVATIONS = [
     area: 'Denpasar',
     quantity: 2,
     unit: 'portions',
+    unit_id: 'porsi',
     status: 'reserved',
     pickupWindow: {
       start: '2026-11-06T15:00:00+08:00',
       end: '2026-11-06T17:00:00+08:00'
     },
     collectionInstructions: 'Ambil di meja samping kasir Jalan Teuku Umar (area demo). Tunjukkan tiket QR kepada petugas dapur.',
+    collectionInstructions_id: 'Ambil di meja samping kasir Jalan Teuku Umar (area demo). Tunjukkan tiket QR kepada petugas dapur.',
     createdAt: '2026-11-06T10:00:00+08:00',
+    completedAt: null,
     isDemo: true
   }
 ];

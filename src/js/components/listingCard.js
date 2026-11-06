@@ -24,17 +24,23 @@ export function getStatusBadgeHtml(listing) {
 }
 
 export function renderListingCard(listing, { showSaveButton = false, isSaved = false } = {}) {
+  const isId = getLanguage() === 'id';
   const categoryLabel = getCategoryLabel(listing.category);
   const statusBadge = getStatusBadgeHtml(listing);
   const deadlineLabel = formatDeadlineBadge(listing.pickupEnd);
-  const dietaryChips = (listing.dietaryTags || [])
+
+  const titleText = isId && listing.title_id ? listing.title_id : listing.title;
+  const providerTypeText = isId && listing.providerType_id ? listing.providerType_id : listing.providerType;
+  const unitText = isId && listing.unit_id ? listing.unit_id : (isId ? (listing.unit === 'portions' ? 'porsi' : listing.unit === 'packs' ? 'bungkus' : listing.unit) : listing.unit);
+  const rawTags = (isId && listing.dietaryTags_id ? listing.dietaryTags_id : listing.dietaryTags) || [];
+  const dietaryChips = rawTags
     .slice(0, 2)
     .map((tag) => `<span class="tag-chip">${escapeHtml(tag)}</span>`)
     .join('');
 
-  const isId = getLanguage() === 'id';
-  const allergenNote = listing.allergens && listing.allergens.length > 0
-    ? `<span class="tag-chip" title="${escapeHtml(listing.allergens.join(', '))}">${isId ? 'Ada info alergen' : 'Allergen info'}</span>`
+  const rawAllergens = (isId && listing.allergens_id ? listing.allergens_id : listing.allergens) || [];
+  const allergenNote = rawAllergens.length > 0
+    ? `<span class="tag-chip" title="${escapeHtml(rawAllergens.join(', '))}">${isId ? 'Ada info alergen' : 'Allergen info'}</span>`
     : `<span class="tag-chip">${isId ? 'Periksa alergen' : 'Check allergens'}</span>`;
 
   return `
@@ -42,7 +48,7 @@ export function renderListingCard(listing, { showSaveButton = false, isSaved = f
       <div class="listing-card-media">
         <img
           src="${escapeHtml(listing.image)}"
-          alt="${escapeHtml(listing.title)} shared by ${escapeHtml(listing.providerName)}"
+          alt="${escapeHtml(titleText)} - ${escapeHtml(listing.providerName)}"
           loading="lazy"
           data-fallback-category="${escapeHtml(listing.category)}"
         />
@@ -62,19 +68,19 @@ export function renderListingCard(listing, { showSaveButton = false, isSaved = f
 
         <h3 class="listing-card-title">
           <a href="#/food/${escapeHtml(listing.id)}" data-link="/food/${escapeHtml(listing.id)}">
-            ${escapeHtml(listing.title)}
+            ${escapeHtml(titleText)}
           </a>
         </h3>
 
         <div class="listing-card-provider">
           <span><strong>${escapeHtml(listing.providerName)}</strong></span>
-          <span style="color: var(--color-muted);">• ${escapeHtml(listing.providerType)}</span>
+          <span style="color: var(--color-muted);">• ${escapeHtml(providerTypeText)}</span>
         </div>
 
         <div class="listing-card-specs">
           <div>
             <span class="listing-spec-label">${t('card_available_qty')}</span>
-            <span class="listing-spec-value">${listing.quantityAvailable} <span style="font-weight:400; color:var(--color-muted);">/ ${listing.quantityTotal} ${escapeHtml(listing.unit)}</span></span>
+            <span class="listing-spec-value">${listing.quantityAvailable} <span style="font-weight:400; color:var(--color-muted);">/ ${listing.quantityTotal} ${escapeHtml(unitText)}</span></span>
           </div>
           <div>
             <span class="listing-spec-label">${t('card_collect_by')}</span>

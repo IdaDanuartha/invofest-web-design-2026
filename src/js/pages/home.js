@@ -366,9 +366,12 @@ export function renderHomePage(container) {
               <span class="badge badge-ai">${icon('sparkle', 12)} FoodLoop Assist</span>
               <span class="badge-demo" style="padding:2px 8px; border-radius:4px;">Demo AI</span>
             </div>
-            <h2 id="ai-spotlight-heading" style="margin-bottom:12px;">Less admin. Better matches.</h2>
+            <h2 id="ai-spotlight-heading" style="margin-bottom:12px;">${lang === 'id' ? 'Administrasi lebih ringkas. Pencocokan lebih tepat.' : 'Less admin. Better matches.'}</h2>
             <p style="margin-bottom:16px;">
-              FoodLoop AI helps providers describe surplus clearly and helps recipients find listings that fit their needs. People stay in control of every decision.
+              ${lang === 'id'
+                ? 'AI FoodLoop membantu penyedia mendeskripsikan surplus secara jelas dan membantu penerima menemukan makanan yang sesuai kebutuhan. Manusia memegang kendali penuh atas setiap keputusan.'
+                : 'FoodLoop AI helps providers describe surplus clearly and helps recipients find listings that fit their needs. People stay in control of every decision.'
+              }
             </p>
             <div class="notice-banner" style="margin-bottom:20px;">
               <span class="notice-banner-icon">${icon('sparkle', 12)}</span>
@@ -378,25 +381,25 @@ export function renderHomePage(container) {
               </div>
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:12px;">
-              <a href="#/assistant" data-link="/assistant" class="btn btn-primary">Try FoodLoop Assist</a>
-              <button type="button" class="btn btn-secondary" id="home-apply-ai-draft-btn">Open draft in Create Listing →</button>
+              <a href="#/assistant" data-link="/assistant" class="btn btn-primary">${lang === 'id' ? 'Coba Asisten AI FoodLoop' : 'Try FoodLoop Assist'}</a>
+              <button type="button" class="btn btn-secondary" id="home-apply-ai-draft-btn">${lang === 'id' ? 'Buka draf di Pasang Surplus →' : 'Open draft in Create Listing →'}</button>
             </div>
           </div>
 
           <div class="ai-preview-console" aria-label="Interactive FoodLoop Assist preview">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
               <label for="home-ai-prompt-input" style="font-weight:700; font-size:0.875rem;">
-                What food do you have today?
+                ${lang === 'id' ? 'Makanan apa yang Anda miliki hari ini?' : 'What food do you have today?'}
               </label>
               <button type="button" class="btn btn-ghost btn-sm" id="home-ai-run-btn" style="padding:4px 10px; color:var(--color-forest); display:inline-flex; align-items:center; gap:6px;">
-                ${icon('refresh', 13)} Generate draft
+                ${icon('refresh', 13)} ${lang === 'id' ? 'Buat draf otomatis' : 'Generate draft'}
               </button>
             </div>
             <textarea
               id="home-ai-prompt-input"
               class="form-textarea"
               style="min-height:74px; margin-bottom:10px;"
-            >12 portions of vegetable rice, prepared at 11:00, chilled, collect before 17:00.</textarea>
+            >${lang === 'id' ? '12 porsi nasi kotak sayur, disiapkan jam 11:00, disimpan dingin, ambil sebelum jam 17:00.' : '12 portions of vegetable rice, prepared at 11:00, chilled, collect before 17:00.'}</textarea>
 
             <div id="home-ai-draft-result">
               <!-- Populated by renderHomeAiDraft -->
@@ -411,42 +414,57 @@ export function renderHomePage(container) {
       <div class="container">
         <div class="section-header">
           <div class="section-header-copy">
-            <span class="eyebrow">Local collaboration</span>
-            <h2 id="ecosystem-heading">A local network makes the difference.</h2>
+            <span class="eyebrow">${lang === 'id' ? 'Kolaborasi Komunitas Lokal' : 'Local collaboration'}</span>
+            <h2 id="ecosystem-heading">${lang === 'id' ? 'Jaringan lokal saling mendukung untuk dampak nyata.' : 'A local network makes the difference.'}</h2>
             <p style="margin-top:6px;">
-              Redistribution works when providers, community kitchens, and collection volunteers share clear expectations.
+              ${lang === 'id'
+                ? 'Penyelamatan makanan berjalan efektif saat penyedia, dapur komunitas, dan sukarelawan penjemput saling terhubung dengan ekspektasi yang jelas.'
+                : 'Redistribution works when providers, community kitchens, and collection volunteers share clear expectations.'
+              }
             </p>
           </div>
-          <a href="#/partners" data-link="/partners" class="btn btn-secondary">Become a partner</a>
+          <a href="#/partners" data-link="/partners" class="btn btn-secondary">${lang === 'id' ? 'Bergabung Menjadi Mitra' : 'Become a partner'}</a>
         </div>
 
         <div class="ecosystem-grid">
           <div class="ecosystem-card">
-            <span class="badge badge-forest" style="align-self:flex-start;">01 • Food providers</span>
-            <h3>Restaurants, cafés, bakeries &amp; grocers</h3>
+            <span class="badge badge-forest" style="align-self:flex-start;">${lang === 'id' ? '01 • Penyedia makanan' : '01 • Food providers'}</span>
+            <h3>${lang === 'id' ? 'Restoran, kafe, toko roti &amp; pasar swalayan' : 'Restaurants, cafés, bakeries &amp; grocers'}</h3>
             <p style="font-size:0.875rem;">
-              Publish unsold edible surplus with transparent storage notes, allergen disclosures, and fixed collection windows.
+              ${lang === 'id'
+                ? 'Publikasikan surplus makanan layak santap lengkap dengan catatan suhu simpan, informasi alergen, dan jam penjemputan yang pasti.'
+                : 'Publish unsold edible surplus with transparent storage notes, allergen disclosures, and fixed collection windows.'
+              }
             </p>
           </div>
           <div class="ecosystem-card">
-            <span class="badge badge-forest" style="align-self:flex-start;">02 • Community organizations</span>
-            <h3>Local groups &amp; shelters</h3>
+            <span class="badge badge-forest" style="align-self:flex-start;">${lang === 'id' ? '02 • Organisasi kemanusiaan' : '02 • Community organizations'}</span>
+            <h3>${lang === 'id' ? 'Yayasan amal, panti asuhan &amp; komunitas warga' : 'Local groups &amp; shelters'}</h3>
             <p style="font-size:0.875rem;">
-              Reserve quantities matching their daily capacity and coordinate reliable pickups without back-and-forth messaging.
+              ${lang === 'id'
+                ? 'Pesan porsi makanan sesuai kapasitas harian dan koordinasikan penjemputan mandiri tanpa bolak-balik kirim pesan.'
+                : 'Reserve quantities matching their daily capacity and coordinate reliable pickups without back-and-forth messaging.'
+              }
             </p>
           </div>
           <div class="ecosystem-card">
-            <span class="badge badge-forest" style="align-self:flex-start;">03 • Community kitchens</span>
-            <h3>Meal programs &amp; food banks</h3>
+            <span class="badge badge-forest" style="align-self:flex-start;">03 • ${lang === 'id' ? 'Dapur umum sosial' : 'Community kitchens'}</span>
+            <h3>${lang === 'id' ? 'Dapur berkah &amp; program pangan gratis' : 'Meal programs &amp; food banks'}</h3>
             <p style="font-size:0.875rem;">
-              Turn wholesale produce crates and bakery batches into nutritious community meals across Denpasar and Badung.
+              ${lang === 'id'
+                ? 'Olah hasil panen segar dan aneka roti berkualitas menjadi hidangan bernutrisi untuk warga yang membutuhkan di Denpasar dan Badung.'
+                : 'Turn wholesale produce crates and bakery batches into nutritious community meals across Denpasar and Badung.'
+              }
             </p>
           </div>
           <div class="ecosystem-card">
-            <span class="badge badge-forest" style="align-self:flex-start;">04 • Collection partners</span>
-            <h3>Volunteer relay &amp; transport</h3>
+            <span class="badge badge-forest" style="align-self:flex-start;">04 • ${lang === 'id' ? 'Relawan logistik' : 'Collection partners'}</span>
+            <h3>${lang === 'id' ? 'Transportasi mandiri &amp; sukarelawan' : 'Volunteer relay &amp; transport'}</h3>
             <p style="font-size:0.875rem;">
-              Support scheduled handoffs between verified providers and community kitchens within tight time windows.
+              ${lang === 'id'
+                ? 'Mendukung serah terima tepat waktu antara dapur penyedia dan lokasi penampungan sebelum jam batas penjemputan.'
+                : 'Support scheduled handoffs between verified providers and community kitchens within tight time windows.'
+              }
             </p>
           </div>
         </div>
@@ -459,25 +477,42 @@ export function renderHomePage(container) {
         <div class="section-header">
           <div class="section-header-copy">
             <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-              <span class="eyebrow" style="margin-bottom:0;">Accountable metrics</span>
-              <span class="badge-demo" style="padding:2px 8px; border-radius:4px;">Recorded demo handoffs</span>
+              <span class="eyebrow" style="margin-bottom:0;">${lang === 'id' ? 'Metrik Terverifikasi' : 'Accountable metrics'}</span>
+              <span class="badge-demo" style="padding:2px 8px; border-radius:4px;">${lang === 'id' ? 'Pencatatan serah terima nyata' : 'Recorded demo handoffs'}</span>
             </div>
-            <h2 id="impact-section-heading">Small handoffs. Shared impact.</h2>
+            <h2 id="impact-section-heading">${lang === 'id' ? 'Setiap porsi bermakna. Dampak nyata bersama.' : 'Small handoffs. Shared impact.'}</h2>
             <p style="margin-top:6px;">
-              FoodLoop counts only verified, completed handoffs, never page views, uncollected reservations, or unverified emissions claims.
+              ${lang === 'id'
+                ? 'FoodLoop hanya menghitung penjemputan makanan yang terverifikasi selesai di tempat, bukan sekadar klik tayangan halaman, reservasi batal, atau klaim lingkungan yang tidak berdasar.'
+                : 'FoodLoop counts only verified, completed handoffs, never page views, uncollected reservations, or unverified emissions claims.'
+              }
             </p>
           </div>
-          <a href="#/impact" data-link="/impact" class="btn btn-secondary">Explore our impact →</a>
+          <a href="#/impact" data-link="/impact" class="btn btn-secondary">${lang === 'id' ? 'Pelajari Metodologi Dampak →' : 'Explore our impact →'}</a>
         </div>
 
         <div class="kpi-grid" style="margin-bottom: var(--space-4);">
           <div class="kpi-card">
-            <div class="kpi-label">Completed handoffs</div>
+            <div class="kpi-label">${lang === 'id' ? 'Serah terima selesai' : 'Completed handoffs'}</div>
             <div class="kpi-value">${formatNumber(metrics.completedHandoffsCount)}</div>
-            <div class="kpi-sub">Confirmed by provider &amp; recipient</div>
+            <div class="kpi-sub">${lang === 'id' ? 'Dikonfirmasi penyedia &amp; penerima' : 'Confirmed by provider &amp; recipient'}</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-label">Portions redistributed</div>
+            <div class="kpi-label">${lang === 'id' ? 'Porsi terselamatkan' : 'Portions redistributed'}</div>
+            <div class="kpi-value">${formatNumber(metrics.portionsRedistributed)}</div>
+            <div class="kpi-sub">${lang === 'id' ? `+ ${formatNumber(metrics.packsRedistributed)} paket roti/sembako` : `+ ${formatNumber(metrics.packsRedistributed)} bakery/grocery packs`}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">${lang === 'id' ? 'Mitra penyedia berpartisipasi' : 'Active participating providers'}</div>
+            <div class="kpi-value">${formatNumber(metrics.activeProvidersCount)}</div>
+            <div class="kpi-sub">${lang === 'id' ? 'Dapur, toko roti &amp; gerai pangan Bali' : 'Demo kitchens, bakeries &amp; grocers'}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">${lang === 'id' ? 'Organisasi penerima terlayani' : 'Recipient organizations served'}</div>
+            <div class="kpi-value">${formatNumber(metrics.recipientOrgsServedCount)}</div>
+            <div class="kpi-sub">${lang === 'id' ? 'Dapur umum &amp; lumbung pangan komunitas' : 'Community kitchens &amp; pantries'}</div>
+          </div>
+        </div>
             <div class="kpi-value">${formatNumber(metrics.portionsRedistributed)}</div>
             <div class="kpi-sub">+ ${formatNumber(metrics.packsRedistributed)} bakery/grocery packs</div>
           </div>
@@ -516,19 +551,25 @@ export function renderHomePage(container) {
           </div>
           <div class="story-content">
             <div style="display:flex; align-items:center; gap:8px;">
-              <span class="badge badge-citrus">Illustrative story</span>
-              <span style="font-size:0.78rem; color:var(--color-muted);">Denpasar workflow example</span>
+              <span class="badge badge-citrus">${lang === 'id' ? 'Kisah Nyata Ilustratif' : 'Illustrative story'}</span>
+              <span style="font-size:0.78rem; color:var(--color-muted);">${lang === 'id' ? 'Contoh alur kerja di Denpasar' : 'Denpasar workflow example'}</span>
             </div>
             <h2 id="story-spotlight-heading" style="font-size:1.65rem;">
-              How a 15:00 lunch surplus becomes a 17:30 community dinner, without ten phone calls.
+              ${lang === 'id'
+                ? 'Bagaimana surplus makan siang jam 15:00 menjadi santapan komunitas jam 17:30, tanpa puluhan telepon.'
+                : 'How a 15:00 lunch surplus becomes a 17:30 community dinner, without ten phone calls.'
+              }
             </h2>
             <p style="font-size:0.9375rem;">
-              When a restaurant in Denpasar finishes lunch service with 12 unserved vegetable rice bowls, staff often lack time to call multiple organizations. By listing the exact portion count, chilling time (4°C), soy allergen note, and a 15:00–17:00 pickup window, nearby community coordinators can reserve what they can carry and confirm handoff on arrival.
+              ${lang === 'id'
+                ? 'Ketika restoran di Denpasar menyelesaikan layanan makan siang dengan sisa 12 porsi nasi kotak sayur yang higienis, staf dapur sering kali tidak punya waktu menelepon banyak yayasan. Dengan memasang jumlah porsi pasti, suhu simpan dingin (4°C), catatan alergen kedelai, dan batas jam ambil 15:00-17:00, koordinator komunitas sekitar dapat langsung memesan porsi yang dapat dibawa dan mengonfirmasi serah terima saat tiba di lokasi.'
+                : 'When a restaurant in Denpasar finishes lunch service with 12 unserved vegetable rice bowls, staff often lack time to call multiple organizations. By listing the exact portion count, chilling time (4°C), soy allergen note, and a 15:00-17:00 pickup window, nearby community coordinators can reserve what they can carry and confirm handoff on arrival.'
+              }
             </p>
             <div style="display:flex; flex-wrap:wrap; gap:16px; padding-top:8px; border-top:1px solid var(--color-line); font-size:0.8125rem; color:var(--color-muted);">
-              <span><strong>14:40</strong> - Provider lists 12 portions</span>
-              <span><strong>15:05</strong> - Community kitchen reserves 8 portions</span>
-              <span><strong>16:15</strong> - Inspected &amp; handoff completed</span>
+              <span><strong>14:40</strong> - ${lang === 'id' ? 'Penyedia memasang 12 porsi' : 'Provider lists 12 portions'}</span>
+              <span><strong>15:05</strong> - ${lang === 'id' ? 'Dapur komunitas memesan 8 porsi' : 'Community kitchen reserves 8 portions'}</span>
+              <span><strong>16:15</strong> - ${lang === 'id' ? 'Makanan diperiksa & serah terima selesai' : 'Inspected & handoff completed'}</span>
             </div>
           </div>
         </div>
@@ -600,29 +641,30 @@ export function renderHomePage(container) {
 
   function renderPathwaySteps(mode) {
     if (!pathwayPanel) return;
+    const isIdPathway = getLanguage() === 'id';
     if (mode === 'recipient') {
       pathwayPanel.setAttribute('aria-labelledby', 'tab-pathway-recipient');
       pathwayPanel.innerHTML = `
         <div class="steps-grid">
           <div class="step-card">
             <span class="step-number-badge">01</span>
-            <h3>Discover food nearby</h3>
-            <p style="font-size:0.875rem;">Filter available surplus in Denpasar, Sanur, or Badung by food category, quantity, and collection deadline.</p>
+            <h3>${isIdPathway ? 'Temukan Makanan di Sekitar' : 'Discover food nearby'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Filter surplus makanan di Denpasar, Sanur, atau Badung berdasarkan kategori, porsi, dan batas waktu ambil.' : 'Filter available surplus in Denpasar, Sanur, or Badung by food category, quantity, and collection deadline.'}</p>
           </div>
           <div class="step-card">
             <span class="step-number-badge">02</span>
-            <h3>Check details &amp; requirements</h3>
-            <p style="font-size:0.875rem;">Review provider-supplied ingredient lists, allergen disclosures, chilling notes, and whether to bring containers.</p>
+            <h3>${isIdPathway ? 'Periksa Detail &amp; Ketentuan' : 'Check details &amp; requirements'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Tinjau bahan, catatan alergen, kondisi suhu simpan, dan apakah perlu membawa wadah sendiri.' : 'Review provider-supplied ingredient lists, allergen disclosures, chilling notes, and whether to bring containers.'}</p>
           </div>
           <div class="step-card">
             <span class="step-number-badge">03</span>
-            <h3>Reserve the amount you can use</h3>
-            <p style="font-size:0.875rem;">Select the exact portion count your organization or household needs and confirm you can arrive in the time window.</p>
+            <h3>${isIdPathway ? 'Pesan Porsi Sesuai Kebutuhan' : 'Reserve the amount you can use'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Pilih berapa porsi yang dibutuhkan untuk dapur umum atau keluarga Anda, dan konfirmasikan kesiapan hadir tepat waktu.' : 'Select the exact portion count your organization or household needs and confirm you can arrive in the time window.'}</p>
           </div>
           <div class="step-card">
             <span class="step-number-badge">04</span>
-            <h3>Collect within the stated window</h3>
-            <p style="font-size:0.875rem;">Inspect the food at handoff, complete collection, and log the handoff in your activity record.</p>
+            <h3>${isIdPathway ? 'Ambil Makanan Sesuai Jadwal' : 'Collect within the stated window'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Periksa kondisi makanan saat tiba di lokasi, tunjukkan tiket digital, dan konfirmasikan serah terima di aplikasi.' : 'Inspect the food at handoff, complete collection, and log the handoff in your activity record.'}</p>
           </div>
         </div>
       `;
@@ -632,23 +674,23 @@ export function renderHomePage(container) {
         <div class="steps-grid">
           <div class="step-card">
             <span class="step-number-badge">01</span>
-            <h3>Share what is available</h3>
-            <p style="font-size:0.875rem;">Enter a quick description or use FoodLoop Assist to structure today’s unsold meals, bakery loaves, or produce.</p>
+            <h3>${isIdPathway ? 'Bagikan Surplus yang Tersedia' : 'Share what is available'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Ketik catatan ringkas atau gunakan Asisten AI FoodLoop untuk menyusun draf makanan, roti, atau hasil tani berlebih.' : 'Enter a quick description or use FoodLoop Assist to structure today’s unsold meals, bakery loaves, or produce.'}</p>
           </div>
           <div class="step-card">
             <span class="step-number-badge">02</span>
-            <h3>Add quantity, time &amp; food details</h3>
-            <p style="font-size:0.875rem;">Specify portion count, collection deadline, storage conditions, and explicit allergen disclosures.</p>
+            <h3>${isIdPathway ? 'Lengkapi Jumlah, Waktu &amp; Alergen' : 'Add quantity, time &amp; food details'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Tentukan jumlah porsi, batas jam penjemputan, suhu simpan (dingin/hangat), serta keterbukaan alergen.' : 'Specify portion count, collection deadline, storage conditions, and explicit allergen disclosures.'}</p>
           </div>
           <div class="step-card">
             <span class="step-number-badge">03</span>
-            <h3>Review a recipient reservation</h3>
-            <p style="font-size:0.875rem;">See who reserved your surplus, how much remains available, and any pickup coordination notes.</p>
+            <h3>${isIdPathway ? 'Pantau Pesanan yang Masuk' : 'Review a recipient reservation'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Lihat organisasi atau warga yang memesan makanan Anda, sisa kuota yang ada, dan pesan koordinasi kedatangan.' : 'See who reserved your surplus, how much remains available, and any pickup coordination notes.'}</p>
           </div>
           <div class="step-card">
             <span class="step-number-badge">04</span>
-            <h3>Hand over &amp; confirm collection</h3>
-            <p style="font-size:0.875rem;">Complete the handoff during your stated window and record the outcome in your impact summary.</p>
+            <h3>${isIdPathway ? 'Serah Terima &amp; Konfirmasi Selesai' : 'Hand over &amp; confirm collection'}</h3>
+            <p style="font-size:0.875rem;">${isIdPathway ? 'Selesaikan serah terima makanan pada jam yang ditentukan dan catat dampak sosial yang telah terselamatkan.' : 'Complete the handoff during your stated window and record the outcome in your impact summary.'}</p>
           </div>
         </div>
       `;
@@ -677,30 +719,31 @@ export function renderHomePage(container) {
 
   async function updateHomeAiPreview() {
     if (!aiInput || !aiResultBox) return;
+    const isIdPreview = getLanguage() === 'id';
     try {
       const draft = await draftListing(aiInput.value);
       latestHomeDraft = draft;
       aiResultBox.innerHTML = `
         <div class="ai-draft-output-grid">
           <div>
-            <span class="listing-spec-label">Suggested title (Draft)</span>
+            <span class="listing-spec-label">${isIdPreview ? 'Saran Judul (Draf AI)' : 'Suggested title (Draft)'}</span>
             <strong style="font-size:0.875rem;">${escapeHtml(draft.title)}</strong>
           </div>
           <div>
-            <span class="listing-spec-label">Category &amp; Quantity</span>
+            <span class="listing-spec-label">${isIdPreview ? 'Kategori &amp; Jumlah' : 'Category &amp; Quantity'}</span>
             <strong style="font-size:0.875rem;">${escapeHtml(draft.category)} • ${escapeHtml(String(draft.quantityTotal))} ${escapeHtml(draft.unit)}</strong>
           </div>
           <div>
-            <span class="listing-spec-label">Storage &amp; Prep</span>
+            <span class="listing-spec-label">${isIdPreview ? 'Penyimpanan &amp; Jam Masak' : 'Storage &amp; Prep'}</span>
             <span style="font-size:0.8125rem;">${escapeHtml(draft.storageNotes)}</span>
           </div>
           <div>
-            <span class="listing-spec-label">Collection window</span>
+            <span class="listing-spec-label">${isIdPreview ? 'Batas Jam Ambil' : 'Collection window'}</span>
             <span style="font-size:0.8125rem;">${escapeHtml(draft.pickupDeadlineNote)}</span>
           </div>
         </div>
         <div style="margin-top:10px; padding:10px 12px; background:var(--color-citrus-subtle); border-radius:var(--radius-xs); font-size:0.78rem; color:var(--color-citrus-ink);">
-          <strong>Missing information checklist (Provider must confirm):</strong>
+          <strong>${isIdPreview ? 'Daftar Periksa yang Harus Dikonfirmasi Penyedia:' : 'Missing information checklist (Provider must confirm):'}</strong>
           <ul style="margin-top:4px; padding-left:16px; list-style:disc;">
             ${draft.missingChecklist.slice(0, 3).map((m) => `<li>${escapeHtml(m)}</li>`).join('')}
           </ul>

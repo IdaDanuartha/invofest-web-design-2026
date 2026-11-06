@@ -65,7 +65,7 @@ export function renderListingDetailPage(container, { params = {} } = {}) {
         <div class="container">
           <!-- 1. Breadcrumb -->
           <nav aria-label="Breadcrumb" style="margin-bottom: var(--space-4); font-size: var(--text-sm); color: var(--color-muted);">
-            <a href="#/discover" data-link="/discover" style="text-decoration:underline;">Discover</a>
+            <a href="#/discover" data-link="/discover" style="text-decoration:underline;">${isId ? 'Temukan Makanan' : 'Discover'}</a>
             <span aria-hidden="true"> / </span>
             <a href="#/discover?category=${escapeHtml(listing.category)}" data-link="/discover?category=${escapeHtml(listing.category)}" style="text-decoration:underline;">
               ${escapeHtml(categoryLabel)}
