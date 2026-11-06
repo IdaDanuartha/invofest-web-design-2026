@@ -219,10 +219,16 @@ export function renderHeader(currentPathname = '/') {
   // Bind role switcher buttons
   headerContainer.querySelectorAll('[data-switch-user]').forEach((btn) => {
     btn.addEventListener('click', () => {
+      const isId = getLanguage() === 'id';
       const targetUserId = btn.getAttribute('data-switch-user');
       appState.setCurrentUser(targetUserId);
       const switchedUser = appState.getCurrentUser();
-      showToast(`Switched demo session to ${switchedUser.name} (${switchedUser.role})`, 'success');
+      showToast(
+        isId
+          ? `Beralih sesi demo ke ${switchedUser.name} (${switchedUser.role})`
+          : `Switched demo session to ${switchedUser.name} (${switchedUser.role})`,
+        'success'
+      );
       router.resolve();
     });
   });
@@ -231,27 +237,31 @@ export function renderHeader(currentPathname = '/') {
   const resetBtn = headerContainer.querySelector('#header-reset-demo-btn');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
+      const isId = getLanguage() === 'id';
       openModal({
-        title: 'Reset Prototype Demo Data?',
+        title: isId ? 'Reset Data Demo Prototipe?' : 'Reset Prototype Demo Data?',
         bodyHtml: `
           <p style="margin-bottom: 12px;">
-            This will restore all surplus listings, reservations, completed handoffs, and impact metrics back to their initial seeded Bali demo state.
+            ${isId
+              ? 'Tindakan ini akan mengembalikan seluruh listing surplus, reservasi, serah terima selesai, dan metrik dampak ke data awal demo Bali.'
+              : 'This will restore all surplus listings, reservations, completed handoffs, and impact metrics back to their initial seeded Bali demo state.'
+            }
           </p>
           <div class="notice-banner">
             <span class="notice-banner-icon">${icon('info', 12)}</span>
-            <span>Any custom listings or reservations created during this session will be cleared from browser localStorage.</span>
+            <span>${isId ? 'Semua listing atau reservasi baru yang Anda buat pada sesi ini akan dibersihkan dari penyimpanan peramban.' : 'Any custom listings or reservations created during this session will be cleared from browser localStorage.'}</span>
           </div>
         `,
         footerHtml: `
-          <button type="button" class="btn btn-secondary btn-sm" data-modal-close>Cancel</button>
-          <button type="button" class="btn btn-danger btn-sm" id="confirm-reset-seed-btn">Reset demo data</button>
+          <button type="button" class="btn btn-secondary btn-sm" data-modal-close>${isId ? 'Batal' : 'Cancel'}</button>
+          <button type="button" class="btn btn-danger btn-sm" id="confirm-reset-seed-btn">${isId ? 'Reset data demo' : 'Reset demo data'}</button>
         `,
         onMount(dialog) {
           const confirmBtn = dialog.querySelector('#confirm-reset-seed-btn');
           confirmBtn.addEventListener('click', () => {
             appState.resetToSeedData();
             closeModal();
-            showToast('Demo data restored to initial state.', 'success');
+            showToast(isId ? 'Data demo berhasil dipulihkan ke kondisi awal.' : 'Demo data restored to initial state.', 'success');
             router.resolve();
           });
         }

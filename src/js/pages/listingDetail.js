@@ -436,7 +436,12 @@ export function renderListingDetailPage(container, { params = {} } = {}) {
     if (saveBtn) {
       saveBtn.addEventListener('click', () => {
         const saved = appState.toggleSavedListing(listing.id);
-        showToast(saved ? 'Saved listing to your dashboard.' : 'Removed from saved listings.', 'info');
+        showToast(
+          saved
+            ? (isId ? 'Makanan disimpan ke dashboard Anda.' : 'Saved listing to your dashboard.')
+            : (isId ? 'Dihapus dari simpanan.' : 'Removed from saved listings.'),
+          'info'
+        );
         renderView();
       });
     }
@@ -468,7 +473,9 @@ export function renderListingDetailPage(container, { params = {} } = {}) {
         if (!confirmed) {
           if (errorBox) {
             errorBox.hidden = false;
-            errorBox.textContent = 'Please confirm that you can collect within the stated pickup window.';
+            errorBox.textContent = isId
+              ? 'Harap konfirmasi bahwa Anda dapat mengambil makanan dalam jadwal batas waktu.'
+              : 'Please confirm that you can collect within the stated pickup window.';
           }
           return;
         }
@@ -480,7 +487,9 @@ export function renderListingDetailPage(container, { params = {} } = {}) {
           });
           lastCreatedReservation = reservation;
           showToast(
-            `You're reserved (${reservation.quantity} ${reservation.unit}). Check the collection window and instructions before you go.`,
+            isId
+              ? `Pesanan berhasil (${reservation.quantity} ${reservation.unit}). Cek jadwal dan petunjuk penjemputan sebelum berangkat.`
+              : `You're reserved (${reservation.quantity} ${reservation.unit}). Check the collection window and instructions before you go.`,
             'success'
           );
           renderView();
@@ -513,28 +522,31 @@ export function renderListingDetailPage(container, { params = {} } = {}) {
     if (reportBtn) {
       reportBtn.addEventListener('click', () => {
         openModal({
-          title: `Report listing: ${listing.title}`,
+          title: isId ? `Laporkan makanan: ${listing.title}` : `Report listing: ${listing.title}`,
           bodyHtml: `
             <p style="margin-bottom:12px; font-size:0.875rem;">
-              Help keep FoodLoop accountable. Flag listings with missing allergen disclosures, expired pickup windows, or unsuitable food conditions.
+              ${isId
+                ? 'Bantu jaga transparansi FoodLoop. Laporkan jika ada rincian alergen yang tidak jelas, batas penjemputan lewat, atau kondisi makanan tidak layak.'
+                : 'Help keep FoodLoop accountable. Flag listings with missing allergen disclosures, expired pickup windows, or unsuitable food conditions.'
+              }
             </p>
             <form id="modal-report-listing-form">
               <div class="form-group">
-                <label for="report-reason-select" class="form-label">Reason for report</label>
+                <label for="report-reason-select" class="form-label">${isId ? 'Alasan pelaporan' : 'Reason for report'}</label>
                 <select id="report-reason-select" class="form-select" required>
-                  <option value="Missing allergen or storage details">Missing allergen or storage details</option>
-                  <option value="Collection window already passed">Collection window already passed</option>
-                  <option value="Food condition appears unsuitable at handoff">Food condition appears unsuitable at handoff</option>
-                  <option value="Inaccurate pickup instructions">Inaccurate pickup instructions</option>
+                  <option value="Missing allergen or storage details">${isId ? 'Rincian alergen atau penyimpanan tidak lengkap' : 'Missing allergen or storage details'}</option>
+                  <option value="Collection window already passed">${isId ? 'Waktu pengambilan sudah terlewat' : 'Collection window already passed'}</option>
+                  <option value="Food condition appears unsuitable at handoff">${isId ? 'Kondisi makanan tidak layak saat serah terima' : 'Food condition appears unsuitable at handoff'}</option>
+                  <option value="Inaccurate pickup instructions">${isId ? 'Petunjuk penjemputan tidak akurat' : 'Inaccurate pickup instructions'}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="report-notes-input" class="form-label">Additional notes</label>
-                <textarea id="report-notes-input" class="form-textarea" placeholder="Provide brief context for platform review..."></textarea>
+                <label for="report-notes-input" class="form-label">${isId ? 'Catatan tambahan' : 'Additional notes'}</label>
+                <textarea id="report-notes-input" class="form-textarea" placeholder="${isId ? 'Tuliskan konteks singkat untuk pemeriksaan tim...' : 'Provide brief context for platform review...'}"></textarea>
               </div>
               <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
-                <button type="button" class="btn btn-secondary btn-sm" data-modal-close>Cancel</button>
-                <button type="submit" class="btn btn-danger btn-sm">Submit report</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-modal-close>${isId ? 'Batal' : 'Cancel'}</button>
+                <button type="submit" class="btn btn-danger btn-sm">${isId ? 'Kirim laporan' : 'Submit report'}</button>
               </div>
             </form>
           `,
@@ -551,7 +563,7 @@ export function renderListingDetailPage(container, { params = {} } = {}) {
                 notes
               });
               closeModal();
-              showToast('Report logged for platform review.', 'warning');
+              showToast(isId ? 'Laporan dicatat untuk ditinjau pengelola.' : 'Report logged for platform review.', 'warning');
             });
           }
         });

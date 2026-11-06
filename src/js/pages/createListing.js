@@ -663,7 +663,7 @@ export function renderCreateListingPage(container) {
             formState.storageNotes = draft.storageNotes;
           }
           aiChecklistNotice = draft.missingChecklist;
-          showToast('AI draft applied. Please review and confirm all fields.', 'info');
+          showToast(isId ? 'Draf AI diterapkan. Harap tinjau dan konfirmasi seluruh kolom.' : 'AI draft applied. Please review and confirm all fields.', 'info');
           renderView();
         } catch (err) {
           showToast(err.message, 'error');
@@ -687,7 +687,7 @@ export function renderCreateListingPage(container) {
           reader.onload = () => {
             if (typeof reader.result === 'string') {
               formState.image = reader.result;
-              showToast('Custom food photo attached for preview.', 'success');
+              showToast(isId ? 'Foto makanan kustom berhasil dilampirkan untuk pratinjau.' : 'Custom food photo attached for preview.', 'success');
             }
           };
           reader.readAsDataURL(file);

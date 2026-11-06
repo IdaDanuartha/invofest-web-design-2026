@@ -131,7 +131,7 @@ export function renderLoginPage(container) {
         const userId = btn.getAttribute('data-quick-login');
         appState.setCurrentUser(userId);
         const u = appState.getCurrentUser();
-        showToast(`Signed in as ${u.name} (${u.role})`, 'success');
+        showToast(isId ? `Masuk sebagai ${u.name} (${u.role})` : `Signed in as ${u.name} (${u.role})`, 'success');
         router.navigate('/dashboard');
       });
     });
@@ -152,19 +152,19 @@ export function renderLoginPage(container) {
         const pwd = container.querySelector('#login-password').value;
 
         if (!isValidEmail(email)) {
-          errorMsg = 'Please enter a valid email address.';
+          errorMsg = isId ? 'Silakan masukkan alamat email yang valid.' : 'Please enter a valid email address.';
           renderView();
           return;
         }
         if (!pwd || pwd.length < 4) {
-          errorMsg = 'Please enter a demo password (at least 4 characters).';
+          errorMsg = isId ? 'Silakan masukkan kata sandi demo (minimal 4 karakter).' : 'Please enter a demo password (at least 4 characters).';
           renderView();
           return;
         }
 
         const matchedUser = users.find((u) => u.email.toLowerCase() === email) || users[0];
         appState.setCurrentUser(matchedUser.id);
-        showToast(`Signed in as ${matchedUser.name}`, 'success');
+        showToast(isId ? `Masuk sebagai ${matchedUser.name}` : `Signed in as ${matchedUser.name}`, 'success');
         router.navigate('/dashboard');
       });
     }

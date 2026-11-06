@@ -1409,7 +1409,8 @@ export function renderDashboardPage(container, { pathname = '/dashboard' } = {})
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-        showToast('Exported activity ledger as CSV.', 'success');
+        const isId = getLanguage() === 'id';
+        showToast(isId ? 'Buku catatan aktivitas diekspor sebagai CSV.' : 'Exported activity ledger as CSV.', 'success');
       });
     }
   }

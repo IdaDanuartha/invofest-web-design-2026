@@ -278,7 +278,7 @@ export function renderImpactPage(container) {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-        showToast('Exported completed handoffs as CSV.', 'success');
+        showToast(isId ? 'Data serah terima berhasil diekspor sebagai CSV.' : 'Exported completed handoffs as CSV.', 'success');
       });
     }
   }
