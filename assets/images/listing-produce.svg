@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#E6EDE6"/>
+  <rect x="150" y="120" width="500" height="270" rx="24" fill="#FFFEFA" stroke="#CFCEC2" stroke-width="4"/>
+  <circle cx="290" cy="250" r="65" fill="#7D9B70"/>
+  <circle cx="410" cy="235" r="55" fill="#E8B94F"/>
+  <circle cx="505" cy="265" r="58" fill="#3F7958"/>
+  <circle cx="365" cy="295" r="44" fill="#B84D43" opacity="0.88"/>
+  <rect x="40" y="36" width="150" height="34" rx="17" fill="#202722" opacity="0.82"/>
+  <text x="115" y="58" fill="#FFFEFA" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle">FRESH PRODUCE</text>
+</svg>
+

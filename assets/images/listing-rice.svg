@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#EAE6DC"/>
+  <circle cx="650" cy="110" r="180" fill="#DCE5DC" opacity="0.7"/>
+  <circle cx="160" cy="400" r="160" fill="#E4DEC9" opacity="0.6"/>
+  <ellipse cx="400" cy="275" rx="230" ry="145" fill="#244B3B"/>
+  <ellipse cx="400" cy="262" rx="212" ry="130" fill="#FFFEFA"/>
+  <ellipse cx="400" cy="260" rx="188" ry="112" fill="#F7F5EF"/>
+  <circle cx="355" cy="245" r="58" fill="#FFFDF7"/>
+  <circle cx="430" cy="230" r="46" fill="#7D9B70"/>
+  <circle cx="455" cy="275" r="38" fill="#E8B94F"/>
+  <circle cx="345" cy="295" r="32" fill="#B84D43" opacity="0.85"/>
+  <path d="M310 225C330 205 370 205 390 225" stroke="#E5E4DB" stroke-width="4" stroke-linecap="round"/>
+  <rect x="40" y="36" width="170" height="34" rx="17" fill="#202722" opacity="0.82"/>
+  <text x="125" y="58" fill="#FFFEFA" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="middle">PREPARED MEALS</text>
+</svg>
+
